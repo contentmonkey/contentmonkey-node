@@ -92,8 +92,13 @@ Page = sequelize.define parts["Database"]["Prefix"] + "pages", {
   draft: Sequelize.BOOLEAN,
   active: Sequelize.BOOLEAN
 }
-
 Page.belongsTo User
+
+Setting = sequelize.define parts["Database"]["Prefix"] + "settings", {
+  property: Sequelize.STRING,
+  value: Sequelize.STRING,
+  description: Sequelize.STRING
+}
 
 if parts["Development"]
   warn "You are using Development-Mode to load the database!"
