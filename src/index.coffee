@@ -149,7 +149,7 @@ contentmonkey.get '/stylesheets.css', (request, response) ->
 # Start the server.
 #
 addressItems = parts['ServerAddress'].split ':'
-server = contentmonkey.listen addressItems[2], () ->
+server = contentmonkey.listen addressItems[1], () ->
   host = server.address().address;
   port = server.address().port;
   console.log 'contentmonkey is listening at http://%s:%s', host, port
