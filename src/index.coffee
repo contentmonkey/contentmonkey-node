@@ -47,11 +47,7 @@ parts["Sitebase"] = styleDir + "/"
 
 partFiles = fs.readdirSync parts['Sitebase'] + "parts/"
 partFiles.forEach (ele, index, array) ->
-  if path.extname(ele) == ".gitkeep"
-    console.log "Ignoring .gitkeep"
-  else
-    parts[path.basename ele, path.extname(ele)] = figurePage parts['Sitebase'] + "parts/" + path.basename(ele, path.extname(ele))
-
+  do dump
 #
 # Setup Handlebar's Helpers.
 #
