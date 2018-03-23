@@ -2,5 +2,5 @@
   "CurrentTheme": "default",
   "Sitebase": "http://localhost:8080/",
   "Cache": false,
-  "ServerAddress": "localhost:1111"
+  "ServerAddress": "localhost:80"
 }
