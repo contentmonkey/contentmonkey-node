@@ -168,4 +168,5 @@ page = (p) ->
 
 dump = () -> return null
 
-figurePage = (p) -> do dump
+figurePage = (p) ->
+  return ""
