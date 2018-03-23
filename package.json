@@ -4,7 +4,7 @@
   "main": "src/index.coffee",
   "repository": "https://github.com/contentmonkey/contentmonkey.git",
   "author": "MagicMarvMan <noreply@marvnet.de>",
-  "license": "GPL-3.0",
+  "license": "GPL-2.0",
   "scripts": {
     "start": "coffee src/index.coffee"
   },
