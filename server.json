@@ -11,5 +11,6 @@
     "Dialect"         : "mysql",
     "Prefix"          : "cm_v1_",
     "operatorsAliases": false
-  }
+  },
+  "Development": true
 }

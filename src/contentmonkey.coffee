@@ -12,17 +12,52 @@ moment        = require 'moment' # http://momentjs.com/
 marked        = require 'marked' # https://github.com/chjj/marked
 jade          = require 'jade' # http://jade-lang.com/
 Sequelize     = require 'sequelize'
+chalk         = require 'chalk'
 
 
+log           = console.log
 
 
+colors = {
+  Reset: "\x1b[0m"
+  Bright: "\x1b[1m"
+  Dim: "\x1b[2m"
+  Underscore: "\x1b[4m"
+  Blink: "\x1b[5m"
+  Reverse: "\x1b[7m"
+  Hidden: "\x1b[8m"
 
+  FgBlack: "\x1b[30m"
+  FgRed: "\x1b[31m"
+  FgGreen: "\x1b[32m"
+  FgYellow: "\x1b[33m"
+  FgBlue: "\x1b[34m"
+  FgMagenta: "\x1b[35m"
+  FgCyan: "\x1b[36m"
+  FgWhite: "\x1b[37m"
+
+  BgBlack: "\x1b[40m"
+  BgRed: "\x1b[41m"
+  BgGreen: "\x1b[42m"
+  BgYellow: "\x1b[43m"
+  BgBlue: "\x1b[44m"
+  BgMagenta: "\x1b[45m"
+  BgCyan: "\x1b[46m"
+  BgWhite: "\x1b[47m"
+}
+
+
+info = (str) -> log chalk.magenta.bold '[' + chalk.cyan.bold "INFO" + chalk.magenta.bold ']' + " " + chalk.black str
+error = (str) -> log chalk.magenta.bold '[' + chalk.red.bold "ERROR" + chalk.magenta.bold ']' + " " + chalk.red.bold str
+warn = (str) -> log chalk.magenta.bold '['  + chalk.yellow.bold "WARN"  + chalk.magenta.bold "]" + " " + chalk.bold.yellow str
 
 #
 # Setup Global Variables
 #
-console.log 'Loading settings...'
+info 'Loading...'
+info 'Loading settings...'
 parts = JSON.parse fs.readFileSync('./server.json', 'utf-8')
+info 'Loading database...'
 sequelize = new Sequelize parts['Database']['Database'], parts['Database']['Username'], parts['Database']['Password'], {
   host: parts['Database']['Host'],
   dialect: parts['Database']['Dialect'],
@@ -36,7 +71,7 @@ sequelize = new Sequelize parts['Database']['Database'], parts['Database']['User
   operatorsAliases: parts['Database']['operatorsAliases']
 }
 
-User = sequelize.define parts["Database"]["Prefix"] + "user", {
+User = sequelize.define parts["Database"]["Prefix"] + "users", {
   username: Sequelize.STRING,
   password: Sequelize.STRING,
   email: Sequelize.STRING,
@@ -49,8 +84,17 @@ User = sequelize.define parts["Database"]["Prefix"] + "user", {
   active: Sequelize.BOOLEAN
 }
 
-sequelize.sync()
+Page = sequelize.define parts["Database"]["Prefix"] + "pages", {
 
+}
+
+if parts["Development"]
+  info "Using development mode"
+  sequelize.sync {force: true}
+else
+  do sequelize.sync
+
+info 'Loading environment...'
 styleDir = do process.cwd + '/themes/' + parts['CurrentTheme']
 layoutDir = styleDir
 templateDir = do process.cwd + '/themes/' + parts['CurrentTheme'] + '/templates'
@@ -58,8 +102,9 @@ PORT = process.env.PORT || 55555
 siteCSS = null
 siteScripts = null
 mainPage = null
-console.log 'CurrentStyling: ' + styleDir
-console.log 'CurrentLayout: ' + layoutDir
+info 'Loading theme...'
+info 'CurrentStyling: ' + styleDir
+info 'CurrentLayout: ' + layoutDir
 
 marked.setOptions {
   renderer: new marked.Renderer,
@@ -72,6 +117,7 @@ marked.setOptions {
   smartypants: false
 }
 
+info 'Loading templates...'
 parts["layout"] = fs.readFileSync templateDir + '/page.html', 'utf8'
 parts["404"] = fs.readFileSync templateDir + '/404.html', 'utf8'
 parts["footer"] = fs.readFileSync templateDir + '/footer.html', 'utf8'
@@ -95,6 +141,7 @@ partFiles = fs.readdirSync parts['Sitebase'] + "parts/"
 #                      expansions. It also returns the
 #                      value directly.
 #
+info 'Loading HandleBars lib...'
 Handlebars.registerHelper "save", (name, text) ->
   #
   # Local Variables.
@@ -151,11 +198,13 @@ Handlebars.registerHelper "cdate", (cTime, dFormat) ->
 #
 # Create and configure the server.
 #
+info 'Loading server...'
 contentmonkey = do express
 
 #
 # Configure middleware.
 #
+info 'Loading morgan...'
 contentmonkey.use morgan('combined')
 
 #
@@ -180,11 +229,13 @@ contentmonkey.get '/stylesheets.css', (request, response) ->
 #
 # Start the server.
 #
+info 'Starting server...'
 addressItems = parts['ServerAddress'].split ':'
 server = contentmonkey.listen PORT, () ->
   host = server.address().address;
   port = server.address().port;
-  console.log 'contentmonkey is listening at http://%s:%s', host, port
+  info 'contentmonkey is listening at http://%s:%s', host, port
+  info 'Done!'
 
 
 page = (p) ->
