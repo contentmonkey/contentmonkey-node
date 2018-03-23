@@ -1,0 +1,16 @@
+{
+  "name": "contentmonkey",
+  "version": "1.0.0",
+  "main": "src/index.js",
+  "repository": "https://github.com/contentmonkey/contentmonkey.git",
+  "author": "MagicMarvMan <noreply@marvnet.de>",
+  "license": "GPL-3.0",
+  "dependencies": {
+    "express": "^4.16.3",
+    "handlebars": "^4.0.11",
+    "jade": "^1.11.0",
+    "marked": "^0.3.18",
+    "moment": "^2.21.0",
+    "morgan": "^1.9.0"
+  }
+}
