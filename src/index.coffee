@@ -15,6 +15,23 @@ jade = require 'jade' # http://jade-lang.com/
 #
 # Setup Global Variables
 #
+console.log 'Loading settings...'
 parts = JSON.parse fs.readFileSync('./server.json', 'utf-8')
 styleDir = do process.cwd + '/themes/styling/' + parts['CurrentStyling']
-console.log styleDir
+layoutDir = do process.cwd + '/themes/layout/' + parts['CurrentLayout']
+siteCSS = null
+siteScripts = null
+mainPage = null
+console.log 'CurrentStyling: ' + styleDir
+console.log 'CurrentLayout: ' + layoutDir
+
+marked.setOptions {
+  renderer: new marked.Renderer,
+  gfm: true,
+  tables: true,
+  breaks: false,
+  pedantic: false,
+  sanitize: false,
+  smartLists: true,
+  smartypants: false
+}
