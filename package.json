@@ -1,11 +1,15 @@
 {
   "name": "contentmonkey",
   "version": "1.0.0",
-  "main": "src/index.js",
+  "main": "src/index.coffee",
   "repository": "https://github.com/contentmonkey/contentmonkey.git",
   "author": "MagicMarvMan <noreply@marvnet.de>",
   "license": "GPL-3.0",
+  "scripts": {
+    "start": "coffee src/index.coffee"
+  },
   "dependencies": {
+    "coffeescript": "^2.2.3",
     "express": "^4.16.3",
     "handlebars": "^4.0.11",
     "jade": "^1.11.0",
