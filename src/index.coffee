@@ -46,8 +46,7 @@ parts["sidebar"] = fs.readFileSync templateDir + '/sidebar.html', 'utf8'
 parts["Sitebase"] = styleDir + "/"
 
 partFiles = fs.readdirSync parts['Sitebase'] + "parts/"
-partFiles.forEach (ele, index, array) ->
-  do dump
+
 #
 # Setup Handlebar's Helpers.
 #
