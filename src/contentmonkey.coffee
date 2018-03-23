@@ -11,6 +11,9 @@ Handlebars    = require 'handlebars' # http://handlebarsjs.com/
 moment        = require 'moment' # http://momentjs.com/
 marked        = require 'marked' # https://github.com/chjj/marked
 jade          = require 'jade' # http://jade-lang.com/
+Sequelize     = require 'sequelize'
+
+
 
 
 
@@ -20,6 +23,34 @@ jade          = require 'jade' # http://jade-lang.com/
 #
 console.log 'Loading settings...'
 parts = JSON.parse fs.readFileSync('./server.json', 'utf-8')
+sequelize = new Sequelize parts['Database']['Database'], parts['Database']['Username'], parts['Database']['Password'], {
+  host: parts['Database']['Host'],
+  dialect: parts['Database']['Dialect'],
+  pool: {
+    max: 5,
+    min: 0,
+    acquire: 30000,
+    idle: 10000
+  },
+  storage: "contentmonkey.sqlite",
+  operatorsAliases: parts['Database']['operatorsAliases']
+}
+
+User = sequelize.define parts["Database"]["Prefix"] + "user", {
+  username: Sequelize.STRING,
+  password: Sequelize.STRING,
+  email: Sequelize.STRING,
+  security_level: Sequelize.INTEGER,
+  last_active: Sequelize.DATE,
+  registered: Sequelize.DATE,
+  firstname: Sequelize.STRING,
+  lastname: Sequelize.STRING,
+  dummy: Sequelize.BOOLEAN,
+  active: Sequelize.BOOLEAN
+}
+
+sequelize.sync()
+
 styleDir = do process.cwd + '/themes/' + parts['CurrentTheme']
 layoutDir = styleDir
 templateDir = do process.cwd + '/themes/' + parts['CurrentTheme'] + '/templates'

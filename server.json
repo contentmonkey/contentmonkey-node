@@ -2,5 +2,14 @@
   "CurrentTheme": "default",
   "Sitebase": "http://localhost:8080/",
   "Cache": false,
-  "ServerAddress": "localhost:80"
+  "ServerAddress": "localhost:80",
+  "Database": {
+    "Database"        : "contentmonkey_new",
+    "Username"        : "contentmonkey_new",
+    "Password"        : "ViLotm3Jq5y99cPm",
+    "Host"            : "localhost",
+    "Dialect"         : "mysql",
+    "Prefix"          : "cm_v1_",
+    "operatorsAliases": false
+  }
 }
