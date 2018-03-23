@@ -85,11 +85,18 @@ User = sequelize.define parts["Database"]["Prefix"] + "users", {
 }
 
 Page = sequelize.define parts["Database"]["Prefix"] + "pages", {
-
+  title: Sequelize.STRING,
+  category: Sequelize.INTEGER,
+  type: Sequelize.INTEGER,
+  content: Sequelize.TEXT,
+  draft: Sequelize.BOOLEAN,
+  active: Sequelize.BOOLEAN
 }
 
+Page.belongsTo User
+
 if parts["Development"]
-  info "Using development mode"
+  warn "You are using Development-Mode to load the database!"
   sequelize.sync {force: true}
 else
   do sequelize.sync
