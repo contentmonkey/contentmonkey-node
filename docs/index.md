@@ -6,5 +6,5 @@ It should be used for many reasons:
 * The user interface is easy to control.
 * Nearly everything can be customized in the settings or easily in the code.
 ## Installation
-You need to have **NodeJS** and **yarn** installed (see [the README](https://github.com/contentmonkey/contentmonkey)).
+You need to have **NodeJS** and **yarn** installed (see [the README](https://github.com/contentmonkey/contentmonkey/blob/master/README.md)).
 Then run `yarn install` and `yarn start` to start the server. It runs on a _SQLite_ database by default.
