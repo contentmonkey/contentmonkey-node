@@ -1,6 +1,6 @@
 # ContentMonkey
 ![GitHub top language](https://img.shields.io/github/languages/top/contentmonkey/contentmonkey.svg?style=flat-square&colorB=green)
-[![Unicorns](https://img.shields.io/badge/unicorn-approved-ff69b4.svg?style=flat-square)](https://www.youtube.com/watch?v=9auOCbH5Ns4)
+[![Unicorns](https://img.shields.io/badge/unicorn-approved-ff69b4.svg?style=flat-square)](https://www.youtube.com/watch?v=9auOCbH5Ns4?autoplay=true)
 ## Description
 **ContentMonkey** is a _simple_ but _powerful_ CMS written in _CoffeeScript_ with _NodeJS_.
 ## Getting Started
