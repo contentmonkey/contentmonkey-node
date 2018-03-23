@@ -1,4 +1,6 @@
 {
-  "CurrentStyling": "default",
-  "CurrentLayout": "default"
+  "CurrentTheme": "default",
+  "Sitebase": "http://localhost:8080/",
+  "Cache": false,
+  "ServerAddress": "localhost:1111"
 }
