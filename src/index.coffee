@@ -20,6 +20,7 @@ parts = JSON.parse fs.readFileSync('./server.json', 'utf-8')
 styleDir = do process.cwd + '/themes/' + parts['CurrentTheme']
 layoutDir = styleDir
 templateDir = do process.cwd + '/themes/' + parts['CurrentTheme'] + '/templates'
+PORT = process.env.PORT || 5000
 siteCSS = null
 siteScripts = null
 mainPage = null
@@ -149,7 +150,7 @@ contentmonkey.get '/stylesheets.css', (request, response) ->
 # Start the server.
 #
 addressItems = parts['ServerAddress'].split ':'
-server = contentmonkey.listen addressItems[1], () ->
+server = contentmonkey.listen PORT, () ->
   host = server.address().address;
   port = server.address().port;
   console.log 'contentmonkey is listening at http://%s:%s', host, port
