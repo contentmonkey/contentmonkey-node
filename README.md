@@ -11,7 +11,9 @@ brew install node yarn
 ```
 **Windows:**
 Install **NodeJS** from [https://nodejs.org/en/download/](https://nodejs.org/en/download/).
+
 Install **yarn** with the [official installer](https://yarnpkg.com/latest.msi).
+
 **Linux:**
 Install **NodeJS** and **yarn** using _apt-get_:
 ```
