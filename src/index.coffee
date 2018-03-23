@@ -165,3 +165,7 @@ setBasicHeader = (response) ->
 
 page = (p) ->
   return "<h1>Hello World</h1>"
+
+dump = () -> return null
+
+figurePage = (p) -> do dump
