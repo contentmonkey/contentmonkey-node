@@ -1,12 +1,12 @@
 {
   "name": "contentmonkey",
   "version": "1.0.0",
-  "main": "src/index.coffee",
+  "main": "src/contentmonkey.coffee",
   "repository": "https://github.com/contentmonkey/contentmonkey.git",
   "author": "MagicMarvMan <noreply@marvnet.de>",
   "license": "GPL-2.0",
   "scripts": {
-    "start": "coffee src/index.coffee"
+    "start": "coffee src/contentmonkey.coffee"
   },
   "dependencies": {
     "coffeescript": "^2.2.3",

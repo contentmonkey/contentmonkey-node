@@ -1,16 +1,19 @@
 #
 # Load the libraries used
 #
-fs = require 'fs'
-path = require 'path'
+fs            = require 'fs'
+path          = require 'path'
 child_process = require 'child_process'
-process = require 'process'
-express = require 'express' # http://expressjs.com/en/
-morgan = require 'morgan' # https://github.com/expressjs/morgan
-Handlebars = require 'handlebars' # http://handlebarsjs.com/
-moment = require 'moment' # http://momentjs.com/
-marked = require 'marked' # https://github.com/chjj/marked
-jade = require 'jade' # http://jade-lang.com/
+process       = require 'process'
+express       = require 'express' # http://expressjs.com/en/
+morgan        = require 'morgan' # https://github.com/expressjs/morgan
+Handlebars    = require 'handlebars' # http://handlebarsjs.com/
+moment        = require 'moment' # http://momentjs.com/
+marked        = require 'marked' # https://github.com/chjj/marked
+jade          = require 'jade' # http://jade-lang.com/
+
+
+
 
 #
 # Setup Global Variables
@@ -20,7 +23,7 @@ parts = JSON.parse fs.readFileSync('./server.json', 'utf-8')
 styleDir = do process.cwd + '/themes/' + parts['CurrentTheme']
 layoutDir = styleDir
 templateDir = do process.cwd + '/themes/' + parts['CurrentTheme'] + '/templates'
-PORT = process.env.PORT || 5000
+PORT = process.env.PORT || 55555
 siteCSS = null
 siteScripts = null
 mainPage = null
@@ -129,11 +132,8 @@ contentmonkey.use morgan('combined')
 #
 contentmonkey.get '/', (request, response) ->
   setBasicHeader response
-  if parts["Cache"] == true && mainPage != null
-    response.send mainPage
-  else
-    mainPage = page "main"
-    response.send mainPage
+  mainPage = page "main"
+  response.send mainPage
 
 contentmonkey.get '/stylesheets.css', (request, response) ->
   response.set "Content-Type", "text/css"
@@ -155,14 +155,10 @@ server = contentmonkey.listen PORT, () ->
   port = server.address().port;
   console.log 'contentmonkey is listening at http://%s:%s', host, port
 
-setBasicHeader = (response) ->
-  response.append "Cache-Control", "max-age=2592000, cache"
-  response.append "Server", "ContentMonkey"
 
 page = (p) ->
   return "<h1>Hello World</h1>"
 
-dump = () -> return null
-
-figurePage = (p) ->
-  return ""
+setBasicHeader = (response) ->
+  response.append "Cache-Control", "max-age=2592000, cache"
+  response.append "Server", "ContentMonkey"
