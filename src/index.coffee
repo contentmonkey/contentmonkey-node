@@ -35,3 +35,13 @@ marked.setOptions {
   smartLists: true,
   smartypants: false
 }
+
+parts["layout"] = fs.readFileSync layoutDir + '/template.html', 'utf8'
+parts["404"] = fs.readFileSync styleDir + '/404.html', 'utf8'
+parts["footer"] = fs.readFileSync styleDir + '/footer.html', 'utf8'
+parts["header"] = fs.readFileSync styleDir + '/header.html', 'utf8'
+parts["sidebar"] = fs.readFileSync styleDir + '/sidebar.html', 'utf8'
+
+partFiles = fs.readdirSync parts['Sitebase'] + "parts/"
+partFiles.forEach (ele, index, array) ->
+  parts[path.basename ele, path.extname(ele)] = figurePage parts['Sitebase'] + "parts/" + path.basename(ele, path.extname(ele))
