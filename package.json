@@ -34,9 +34,12 @@
     "pg-hstore": "^2.3.2",
     "popper.js": "^1.14.1",
     "response-time": "^2.3.2",
+    "semver": "^5.5.0",
     "sequelize": "^4.37.4",
     "sqlite3": "^4.0.0",
     "tedious": "^2.3.1",
-    "tinymce": "^4.7.9"
+    "tinymce": "^4.7.9",
+    "uglify-js": "^3.3.16",
+    "useragent": "^2.3.0"
   }
 }
