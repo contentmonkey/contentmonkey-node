@@ -6,5 +6,4 @@ script:
 node_js:
   - "node"
 env:
-  - NODE_ENV=production
-  - MONKEYMODE=test
+  - NODE_ENV=production MONKEYMODE=test
