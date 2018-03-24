@@ -1,6 +1,6 @@
 {
   "name": "contentmonkey",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "main": "src/contentmonkey.coffee",
   "repository": "https://github.com/contentmonkey/contentmonkey.git",
   "author": "MagicMarvMan <noreply@marvnet.de>",
