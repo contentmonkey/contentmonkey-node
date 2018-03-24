@@ -6,7 +6,8 @@
   "author": "MagicMarvMan <noreply@marvnet.de>",
   "license": "GPL-2.0",
   "scripts": {
-    "start": "coffee src/contentmonkey.coffee"
+    "start": "coffee src/contentmonkey.coffee",
+    "test": "yarn start"
   },
   "dependencies": {
     "babel": "^6.23.0",
