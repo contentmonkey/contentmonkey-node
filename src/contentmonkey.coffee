@@ -27,6 +27,15 @@ compression   = require 'compression'
 
 log           = console.log
 
+monkeymode = "production"
+
+if process.env.MONKEYMODE != null
+  monkeymode = process.env.MONKEYMODE
+
+testmode = false
+if monkeymode == "test"
+  testmode = true
+
 
 colors = {
   Reset: "\x1b[0m"
@@ -111,11 +120,14 @@ Setting = sequelize.define parts["Database"]["Prefix"] + "settings", {
   description: Sequelize.STRING
 }
 
-if parts["Development"]
-  warn "You are using Development-Mode to load the database!"
-  sequelize.sync {force: true}
+if testmode
+  warn "We are not initializing database. We are in test mode!"
 else
-  do sequelize.sync
+  if parts["Development"]
+    warn "You are using Development-Mode to load the database!"
+    sequelize.sync {force: true}
+  else
+    do sequelize.sync
 
 info 'Loading environment...'
 styleDir = do process.cwd + '/themes/' + parts['CurrentTheme']
@@ -284,17 +296,25 @@ contentmonkey.get '/stylesheets.css', (request, response) ->
 
 
 
+startServer = () ->
+  addressItems = parts['ServerAddress'].split ':'
+  server = contentmonkey.listen PORT, () ->
+    host = server.address().address;
+    port = server.address().port;
+    info 'contentmonkey is listening at http://' + host + ":" + port
+    info 'Done!'
+
 
 #
 # Start the server.
 #
 info 'Starting server...'
-addressItems = parts['ServerAddress'].split ':'
-server = contentmonkey.listen PORT, () ->
-  host = server.address().address;
-  port = server.address().port;
-  info 'contentmonkey is listening at http://' + host + ":" + port
-  info 'Done!'
+if testmode
+  error "Interrupting! Only a test."
+  process.exit 0
+else
+  do startServer
+
 
 
 page = (p) ->
