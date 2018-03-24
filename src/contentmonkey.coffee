@@ -296,6 +296,14 @@ contentmonkey.get '/stylesheets.css', (request, response) ->
 
 
 
+startServer = () ->
+  addressItems = parts['ServerAddress'].split ':'
+  server = contentmonkey.listen PORT, () ->
+    host = server.address().address;
+    port = server.address().port;
+    info 'contentmonkey is listening at http://' + host + ":" + port
+    info 'Done!'
+
 
 #
 # Start the server.
@@ -321,11 +329,3 @@ shouldCompress = (req, res) ->
     return false
 
   return compression.filter req, res
-
-startServer = () ->
-  addressItems = parts['ServerAddress'].split ':'
-  server = contentmonkey.listen PORT, () ->
-    host = server.address().address;
-    port = server.address().port;
-    info 'contentmonkey is listening at http://' + host + ":" + port
-    info 'Done!'
