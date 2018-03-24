@@ -294,6 +294,10 @@ contentmonkey.get '/stylesheets.css', (request, response) ->
     siteCSS = fs.readFileSync parts['Sitebase'] + 'css/final/final.css'
     response.send siteCSS
 
+contentmonkey.get '/:page', (request, response) ->
+  setBasicHeader response
+  response.send page request.params.page
+
 
 
 startServer = () ->
