@@ -5,3 +5,6 @@ script:
   - yarn test
 node_js:
   - "node"
+env:
+  - NODE_ENV=production
+  - MONKEYMODE=test
