@@ -1,4 +1,6 @@
 # ContentMonkey
+
+[![Greenkeeper badge](https://badges.greenkeeper.io/contentmonkey/contentmonkey.svg)](https://greenkeeper.io/)
 ![GitHub top language](https://img.shields.io/github/languages/top/contentmonkey/contentmonkey.svg?style=flat-square&colorB=green)
 [![Dependency Status](https://beta.gemnasium.com/badges/github.com/contentmonkey/contentmonkey.svg?style=flat-square)](https://beta.gemnasium.com/projects/github.com/contentmonkey/contentmonkey)
 [![Unicorns](https://img.shields.io/badge/unicorn-approved-ff69b4.svg?style=flat-square)](https://www.youtube.com/watch?v=9auOCbH5Ns4?autoplay=true)
