@@ -1,6 +1,7 @@
 # ContentMonkey
 
 [![Travis](https://img.shields.io/travis/contentmonkey/contentmonkey.svg?style=flat-square)](https://travis-ci.org/contentmonkey/contentmonkey)
+[![npm](https://img.shields.io/npm/v/contentmonkey.svg?style=flat-square)](https://www.npmjs.com/package/contentmonkey)
 [![Greenkeeper badge](https://badges.greenkeeper.io/contentmonkey/contentmonkey.svg)](https://greenkeeper.io/)
 [![GitHub top language](https://img.shields.io/github/languages/top/contentmonkey/contentmonkey.svg?style=flat-square&colorB=green)](#)
 [![Gemnasium](https://img.shields.io/gemnasium/contentmonkey/contentmonkey.svg?style=flat-square)](https://beta.gemnasium.com/projects/github.com/contentmonkey/contentmonkey)
