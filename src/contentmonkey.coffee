@@ -13,6 +13,16 @@ marked        = require 'marked' # https://github.com/chjj/marked
 jade          = require 'jade' # http://jade-lang.com/
 Sequelize     = require 'sequelize'
 chalk         = require 'chalk'
+cors          = require 'cors'
+slash         = require 'express-slash'
+helmet        = require 'helmet'
+optimus       = require 'connect-image-optimus'
+responseTime  = require 'response-time'
+bodyParser    = require 'body-parser'
+csrf          = require 'csurf'
+cookieParser  = require 'cookie-parser'
+session       = require 'express-session'
+compression   = require 'compression'
 
 
 log           = console.log
@@ -68,7 +78,8 @@ sequelize = new Sequelize parts['Database']['Database'], parts['Database']['User
     idle: 10000
   },
   storage: "contentmonkey.sqlite",
-  operatorsAliases: parts['Database']['operatorsAliases']
+  operatorsAliases: parts['Database']['operatorsAliases'],
+  logging: false
 }
 
 User = sequelize.define parts["Database"]["Prefix"] + "users", {
@@ -110,6 +121,7 @@ info 'Loading environment...'
 styleDir = do process.cwd + '/themes/' + parts['CurrentTheme']
 layoutDir = styleDir
 templateDir = do process.cwd + '/themes/' + parts['CurrentTheme'] + '/templates'
+imageDir = do process.cwd + '/content/files/images/'
 PORT = process.env.PORT || 55555
 siteCSS = null
 siteScripts = null
@@ -207,17 +219,50 @@ Handlebars.registerHelper "cdate", (cTime, dFormat) ->
   return moment(cTime).format(dFormat)
 
 
+
+info "Loading csrf-Protection..."
+csrfProtection =  csrf {cookie: true}
+
+info "Loading bodyParser..."
+parseForm = bodyParser.urlencoded {extended: false}
+
 #
 # Create and configure the server.
 #
 info 'Loading server...'
 contentmonkey = do express
 
+
+
+
 #
 # Configure middleware.
 #
 info 'Loading morgan...'
 contentmonkey.use morgan('combined')
+
+info 'Loading cors...'
+contentmonkey.use do cors
+
+info "Loading express-slash..."
+#contentmonkey.use do slash
+warn "Skipping express-slash in this version!"
+
+info "Loading helmet..."
+contentmonkey.use do helmet
+warn "Some helmet modules are disabled!"
+
+info "Loading connect-image-optimus..."
+contentmonkey.use optimus imageDir
+
+info "Loading response-time..."
+contentmonkey.use do responseTime
+
+info "Loading cookie parser..."
+contentmonkey.use do cookieParser
+
+info "Loading compression..."
+contentmonkey.use compression {filter: shouldCompress}
 
 #
 # Define the routes.
@@ -238,6 +283,8 @@ contentmonkey.get '/stylesheets.css', (request, response) ->
     response.send siteCSS
 
 
+
+
 #
 # Start the server.
 #
@@ -246,7 +293,7 @@ addressItems = parts['ServerAddress'].split ':'
 server = contentmonkey.listen PORT, () ->
   host = server.address().address;
   port = server.address().port;
-  info 'contentmonkey is listening at http://%s:%s', host, port
+  info 'contentmonkey is listening at http://' + host + ":" + port
   info 'Done!'
 
 
@@ -256,3 +303,9 @@ page = (p) ->
 setBasicHeader = (response) ->
   response.append "Cache-Control", "max-age=2592000, cache"
   response.append "Server", "ContentMonkey"
+
+shouldCompress = (req, res) ->
+  if req.headers['x-no-compression']
+    return false
+
+  return compression.filter req, res
