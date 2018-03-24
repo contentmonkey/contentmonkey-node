@@ -9,6 +9,7 @@
     "start": "coffee src/contentmonkey.coffee"
   },
   "dependencies": {
+    "babel": "^6.23.0",
     "body-parser": "^1.18.2",
     "bootstrap": "^4.0.0",
     "chalk": "^2.3.2",
