@@ -1,6 +1,7 @@
 language: node_js
 before_install:
   - yarn install
-
 script:
   - yarn test
+node_js:
+  - "node"
